@@ -7,7 +7,7 @@ import javax.inject.Inject
 class CodewarsService {
 
     @Inject
-    lateinit var api : UserAPI
+    lateinit var api : CodewarsAPI
 
     fun getUser(name : String) : Single<User> {
         return api.getUser(name)
