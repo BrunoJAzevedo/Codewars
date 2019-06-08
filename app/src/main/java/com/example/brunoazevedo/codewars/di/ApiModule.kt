@@ -1,6 +1,7 @@
 package com.example.brunoazevedo.codewars.di
 
 import com.example.brunoazevedo.codewars.model.api.CodewarsAPI
+import com.example.brunoazevedo.codewars.model.api.CodewarsService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -21,4 +22,8 @@ class ApiModule {
             .build()
             .create(CodewarsAPI::class.java)
     }
+
+    @Provides
+    fun provideCodewarsService() = CodewarsService()
+
 }
