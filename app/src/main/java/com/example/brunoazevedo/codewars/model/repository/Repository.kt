@@ -1,6 +1,6 @@
 package com.example.brunoazevedo.codewars.model.repository
 
-import com.example.brunoazevedo.codewars.di.DaggerApiComponent
+import com.example.brunoazevedo.codewars.di.DaggerAppComponent
 import com.example.brunoazevedo.codewars.model.User
 import com.example.brunoazevedo.codewars.model.api.CodewarsService
 import io.reactivex.Single
@@ -12,7 +12,7 @@ class Repository : NetworkRepository {
     lateinit var service : CodewarsService
 
     init {
-        DaggerApiComponent.create().inject(this)
+        DaggerAppComponent.create().inject(this)
     }
 
     override fun getUser(name: String): Single<User> {
