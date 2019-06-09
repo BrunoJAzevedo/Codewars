@@ -1,5 +1,6 @@
 package com.example.brunoazevedo.codewars.di
 
+import android.arch.lifecycle.ViewModel
 import android.support.v4.app.Fragment
 import com.example.brunoazevedo.codewars.model.api.CodewarsService
 import com.example.brunoazevedo.codewars.model.repository.Repository
@@ -15,7 +16,6 @@ interface AppComponent {
 
     fun inject(repo : Repository)
     fun inject(service : CodewarsService)
-    fun inject(fragment : Fragment)
-    fun inject(viewModel : UserViewModel)
+    fun inject(userViewMode : UserViewModel)
 
 }
