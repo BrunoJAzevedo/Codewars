@@ -1,10 +1,11 @@
-package com.example.brunoazevedo.codewars.views
+package com.example.brunoazevedo.codewars.views.users
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.*
 import com.example.brunoazevedo.codewars.MainActivity
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.users_fragment.*
 class UsersFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
+    private val usersListAdapter = UsersAdapter(arrayListOf())
 
     companion object {
         private const val KEY: String = ""
@@ -40,6 +42,11 @@ class UsersFragment : Fragment() {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
+        users_recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = usersListAdapter
+        }
+
         return rootView
     }
 
@@ -52,7 +59,7 @@ class UsersFragment : Fragment() {
     private fun observeUsers() {
         userViewModel.users.observe(this, Observer { users ->
             users?.let {
-                tv.text = users[users.size -1].username }
+                usersListAdapter.updateUsers(it) }
         })
     }
 
