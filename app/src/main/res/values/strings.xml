@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Codewars</string>
     <string name="search_title">Search User</string>
+    <string name="order_by_search_time">Order by search time</string>
+    <string name="order_by_rank">Order by rank</string>
+    <string name="order">Order</string>
 </resources>

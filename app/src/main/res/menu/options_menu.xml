@@ -5,4 +5,24 @@
           android:icon="@drawable/ic_search"
           app:actionViewClass="android.widget.SearchView"
           app:showAsAction="collapseActionView|ifRoom"/>
+    <item
+            android:id="@+id/menu_dts_overflow"
+            android:icon="@drawable/ic_reorder"
+            android:orderInCategory="11111"
+            android:title="@string/order"
+            app:showAsAction="always">
+        <menu>
+            <item
+                    android:id="@+id/menu_order_by_search_time"
+                    android:title="@string/order_by_search_time"
+                    app:showAsAction="never" />
+
+
+            <item
+                    android:id="@+id/menu_order_by_rank"
+                    android:title="@string/order_by_rank"
+                    app:showAsAction="never" />
+
+        </menu>
+    </item>
 </menu>
