@@ -8,8 +8,7 @@
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_small"
 >
 
     <android.support.constraint.ConstraintLayout
@@ -21,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/Name"
                 android:layout_weight="1"
-                android:layout_margin="@dimen/small_margin"
+                android:layout_margin="@dimen/spacing_small"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/vertical_guideline"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/Rank"
                 app:layout_constraintStart_toStartOf="@+id/vertical_guideline"
-                android:layout_margin="@dimen/small_margin"
+                android:layout_margin="@dimen/spacing_small"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/Language"
         />
@@ -49,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/Language"
                 app:layout_constraintStart_toStartOf="@+id/vertical_guideline"
-                android:layout_margin="@dimen/small_margin"
+                android:layout_margin="@dimen/spacing_small"
                 app:layout_constraintTop_toBottomOf="@id/Rank"
                 app:layout_constraintBottom_toBottomOf="@id/Points"
         />
@@ -59,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/Points"
                 app:layout_constraintStart_toStartOf="@+id/vertical_guideline"
-                android:layout_margin="@dimen/small_margin"
+                android:layout_margin="@dimen/spacing_small"
                 app:layout_constraintTop_toBottomOf="@id/Language"
                 app:layout_constraintBottom_toBottomOf="parent"
         />
