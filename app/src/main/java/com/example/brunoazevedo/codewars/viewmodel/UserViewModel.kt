@@ -43,11 +43,11 @@ class UserViewModel : ViewModel() {
                     }
 
                     override fun onSuccess(u: User) {
-                        loading.value = false
-                        loadError.value = true
                         //TODO : Find a way to only display the last 5 searches
                         displayUsers.add(u)
                         users.value = displayUsers
+                        loading.value = false
+                        loadError.value = true
                     }
                 })
         )

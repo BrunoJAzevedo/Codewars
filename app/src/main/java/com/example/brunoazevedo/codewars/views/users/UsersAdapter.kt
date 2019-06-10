@@ -37,7 +37,8 @@ class UsersAdapter(private var users : ArrayList<User>) :
 
         fun bind(user : User) {
             name.text = user.username
-            rank.text = user.ranks.overall.rank.toString()
+            val rankPosition = user.leaderboardPosition
+            rank.text = "Rank: $rankPosition"
             laguage.text = "Language"
             points.text = "Points"
         }
