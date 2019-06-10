@@ -4,9 +4,10 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.SearchView
+import android.view.*
+import com.example.brunoazevedo.codewars.MainActivity
 import com.example.brunoazevedo.codewars.R/**/
 import com.example.brunoazevedo.codewars.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.users_fragment.*
@@ -25,6 +26,11 @@ class UsersFragment : Fragment() {
                     putString(KEY, url)
                 }
             }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -53,5 +59,28 @@ class UsersFragment : Fragment() {
 
     fun fetchUser() {
         userViewModel.fetchUser("BrunoJAzevedo94")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.options_menu, menu)
+        val item = menu?.findItem(R.id.search)
+        val sv = SearchView((activity as MainActivity).supportActionBar?.themedContext)
+        MenuItemCompat.setShowAsAction(
+            item,
+            MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
+        )
+        MenuItemCompat.setActionView(item, sv)
+        sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                userViewModel.fetchUser(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                println("tap")
+                return false
+            }
+        })
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }
