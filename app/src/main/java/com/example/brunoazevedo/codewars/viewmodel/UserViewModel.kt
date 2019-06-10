@@ -5,6 +5,9 @@ import android.arch.lifecycle.ViewModel
 import com.example.brunoazevedo.codewars.di.DaggerAppComponent
 import com.example.brunoazevedo.codewars.model.User
 import com.example.brunoazevedo.codewars.model.repository.Repository
+import com.example.brunoazevedo.codewars.utils.orderByRankUtil
+import com.example.brunoazevedo.codewars.utils.shitftDown
+import com.example.brunoazevedo.codewars.utils.userToTop
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -16,7 +19,8 @@ class UserViewModel : ViewModel() {
     @Inject
     lateinit var repo : Repository
 
-    private val displayUsers = ArrayList<User>()
+    private var displayUsers = ArrayList<User>()
+    private var rankOrder = false
     val users = MutableLiveData<List<User>>()
     val loadError = MutableLiveData<Boolean>()
     //is loading the data from backend?
@@ -43,14 +47,32 @@ class UserViewModel : ViewModel() {
                     }
 
                     override fun onSuccess(u: User) {
-                        //TODO : Find a way to only display the last 5 searches
-                        displayUsers.add(u)
-                        users.value = displayUsers
+                        if (!displayUsers.contains(u)) {
+                            if (displayUsers.isNotEmpty()) displayUsers = shitftDown(displayUsers, u)
+                            else displayUsers.add(u)
+                            users.value = if(!rankOrder) displayUsers else orderByRankUtil(displayUsers)
+
+                        } else {
+                            if(!rankOrder) {
+                                displayUsers = userToTop(displayUsers, u)
+                                users.value = displayUsers
+                            }
+                        }
                         loading.value = false
-                        loadError.value = true
+                        loadError.value = false
                     }
                 })
         )
+    }
+
+    fun orderByRank() {
+        rankOrder = true
+        users.value =  orderByRankUtil(displayUsers)
+    }
+
+    fun orderBySearchTime() {
+        rankOrder = false
+        users.value = displayUsers
     }
 
     override fun onCleared() {
