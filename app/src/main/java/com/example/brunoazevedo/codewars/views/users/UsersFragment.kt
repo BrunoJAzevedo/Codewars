@@ -46,19 +46,14 @@ class UsersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        button.setOnClickListener { this.fetchUser() }
         observeUsers()
     }
 
     private fun observeUsers() {
         userViewModel.users.observe(this, Observer { users ->
             users?.let {
-                tv.text = users[0].username }
+                tv.text = users[users.size -1].username }
         })
-    }
-
-    fun fetchUser() {
-        userViewModel.fetchUser("BrunoJAzevedo94")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
