@@ -85,6 +85,30 @@ class UsersFragment : Fragment() {
                 return false
             }
         })
+
+
+
+
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.menu_order_by_search_time -> orderBySearchTime()
+            R.id.menu_order_by_rank -> orderByRank()
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun orderBySearchTime() : Boolean {
+        userViewModel.orderBySearchTime()
+
+        return true
+    }
+
+    private fun orderByRank() : Boolean {
+        userViewModel.orderByRank()
+
+        return true
     }
 }
