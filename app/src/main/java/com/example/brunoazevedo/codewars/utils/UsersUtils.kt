@@ -1,5 +1,6 @@
 package com.example.brunoazevedo.codewars.utils
 
+import com.example.brunoazevedo.codewars.model.Overall
 import com.example.brunoazevedo.codewars.model.User
 
 /**
@@ -78,4 +79,24 @@ private fun deleteExtraUser(users : List<User>) : ArrayList<User> {
     }
     return aux
 }
+
+/**
+ * Returns user best language
+ */
+fun userBestLanguage(languages : Map<String, Overall>) : String {
+    var auxLanguage = ""
+    var auxBestPoints = -1L
+    languages.forEach { (language, overal) ->
+        if (overal.score > auxBestPoints) {
+            auxLanguage = language
+            auxBestPoints = overal.score
+        }
+    }
+    return auxLanguage
+}
+
+/**
+ * Return the score for a given language
+ */
+fun languagePoints(language : Overall?) : Long? = language?.score
 
