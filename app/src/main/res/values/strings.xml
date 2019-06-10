@@ -4,4 +4,7 @@
     <string name="order_by_search_time">Order by search time</string>
     <string name="order_by_rank">Order by rank</string>
     <string name="order">Order</string>
+    <string name="error_text">An error occurred while loading data. Check if you have Internet access and try again
+        please
+    </string>
 </resources>

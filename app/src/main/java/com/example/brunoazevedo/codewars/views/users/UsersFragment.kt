@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.*
+import android.widget.Toast
 import com.example.brunoazevedo.codewars.MainActivity
 import com.example.brunoazevedo.codewars.R/**/
 import com.example.brunoazevedo.codewars.viewmodel.UserViewModel
@@ -43,6 +44,7 @@ class UsersFragment : Fragment() {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
+        userViewModel.init()
 
         return rootView
     }
@@ -62,6 +64,20 @@ class UsersFragment : Fragment() {
         userViewModel.users.observe(this, Observer { users ->
             users?.let {
                 usersListAdapter.updateUsers(it) }
+        })
+
+        userViewModel.loadError.observe(this, Observer { isError ->
+            isError?.let {
+                if (it) {
+                    Toast.makeText(context, context?.resources?.getText(R.string.error_text), Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        userViewModel.loading.observe(this, Observer { isLoading ->
+            isLoading?.let {
+                loading_view.visibility = if(it) View.VISIBLE else View.GONE
+            }
         })
     }
 
@@ -85,9 +101,6 @@ class UsersFragment : Fragment() {
                 return false
             }
         })
-
-
-
 
         super.onCreateOptionsMenu(menu, inflater)
     }

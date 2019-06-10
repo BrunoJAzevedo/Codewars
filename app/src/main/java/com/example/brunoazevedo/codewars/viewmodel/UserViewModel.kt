@@ -34,6 +34,14 @@ class UserViewModel : ViewModel() {
             .inject(this)
     }
 
+    /**
+     * Start error and loading as false
+     */
+    fun init() {
+        loading.value = false
+        loadError.value = false
+    }
+
     fun fetchUser(name : String) {
         loading.value = true
         disposable.add(
