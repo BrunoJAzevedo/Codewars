@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.*
 import com.example.brunoazevedo.codewars.MainActivity
@@ -42,16 +43,17 @@ class UsersFragment : Fragment() {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        users_recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = usersListAdapter
-        }
 
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        users_recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = usersListAdapter
+        }
 
         observeUsers()
     }
