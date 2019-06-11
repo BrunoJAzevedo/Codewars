@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.brunoazevedo.codewars.R
 import com.example.brunoazevedo.codewars.utils.userString
 
@@ -25,6 +24,9 @@ class ChallengesFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.challenges_fragment, container, false)
+
+        //TODO : save to view model
+        arguments?.getString(userString)
 
         return rootView
     }
