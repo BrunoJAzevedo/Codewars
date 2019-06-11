@@ -4,12 +4,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import com.example.brunoazevedo.codewars.R
 import com.example.brunoazevedo.codewars.model.User
+import com.example.brunoazevedo.codewars.utils.languagePoints
+import com.example.brunoazevedo.codewars.utils.userBestLanguage
 import kotlinx.android.synthetic.main.item_user.view.*
 
-class UsersAdapter(private var users : ArrayList<User>) :
+class UsersAdapter(private var users : ArrayList<User>, private val listener : OnItemClickListener) :
     RecyclerView.Adapter<UsersAdapter.UsersViewHolder>()  {
 
     fun updateUsers(newUsers : List<User>) {
@@ -25,7 +26,7 @@ class UsersAdapter(private var users : ArrayList<User>) :
     )
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-        holder.bind(users[position])
+        holder.bind(users[position], listener)
     }
 
     class UsersViewHolder(view : View) : RecyclerView.ViewHolder(view) {
@@ -35,12 +36,20 @@ class UsersAdapter(private var users : ArrayList<User>) :
         private val laguage = view.Language
         private val points = view.Points
 
-        fun bind(user : User) {
+        fun bind(user : User, listener : OnItemClickListener) {
             name.text = user.username
             val rankPosition = user.leaderboardPosition
             rank.text = "Rank: $rankPosition"
-            laguage.text = "Language"
-            points.text = "Points"
+            val bestLanguage = userBestLanguage(user.ranks.languages)
+            laguage.text = "Best Language: $bestLanguage"
+            val bestLanguagePoints = languagePoints(user.ranks.languages.get(bestLanguage))
+            points.text = "Best Language Points: $bestLanguagePoints"
+
+            itemView.setOnClickListener { listener.onItemClick(user) }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(person : User?)
     }
 }

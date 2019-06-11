@@ -7,4 +7,7 @@
     <string name="error_text">An error occurred while loading data. Check if you have Internet access and try again
         please
     </string>
+    <string name="title_completed">Completed Challenges</string>
+    <string name="challenges_completed">Completed Challenges</string>
+    <string name="challenges_authored">Authored Challenges</string>
 </resources>

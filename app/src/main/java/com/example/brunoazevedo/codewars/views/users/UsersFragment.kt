@@ -12,13 +12,17 @@ import android.view.*
 import android.widget.Toast
 import com.example.brunoazevedo.codewars.MainActivity
 import com.example.brunoazevedo.codewars.R/**/
+import com.example.brunoazevedo.codewars.model.User
+import com.example.brunoazevedo.codewars.utils.challengeString
+import com.example.brunoazevedo.codewars.utils.userString
 import com.example.brunoazevedo.codewars.viewmodel.UserViewModel
+import com.example.brunoazevedo.codewars.views.challenges.ChallengesFragment
 import kotlinx.android.synthetic.main.users_fragment.*
 
 class UsersFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
-    private val usersListAdapter = UsersAdapter(arrayListOf())
+    private lateinit var usersListAdapter : UsersAdapter
 
     companion object {
         private const val KEY: String = ""
@@ -52,6 +56,22 @@ class UsersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val listener = object:UsersAdapter.OnItemClickListener {
+            override fun onItemClick(user: User?) {
+                val challengesFragment : Fragment = ChallengesFragment.newInstance(challengeString)
+                val args = Bundle()
+                args.putString(userString, user?.username)
+                challengesFragment.arguments = args
+
+                val transaction = activity?.supportFragmentManager?.beginTransaction()
+                transaction?.replace(R.id.fragment_container, challengesFragment,
+                    challengeString)?.addToBackStack(null)?.commit()
+            }
+        }
+
+        this.usersListAdapter = UsersAdapter(arrayListOf(), listener)
+
+
         users_recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = usersListAdapter
@@ -69,7 +89,8 @@ class UsersFragment : Fragment() {
         userViewModel.loadError.observe(this, Observer { isError ->
             isError?.let {
                 if (it) {
-                    Toast.makeText(context, context?.resources?.getText(R.string.error_text), Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, context?.resources?.getText(R.string.error_text),
+                        Toast.LENGTH_LONG).show()
                 }
             }
         })
