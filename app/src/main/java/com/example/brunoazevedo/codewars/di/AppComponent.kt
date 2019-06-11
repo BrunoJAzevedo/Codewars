@@ -1,7 +1,5 @@
 package com.example.brunoazevedo.codewars.di
 
-import android.arch.lifecycle.ViewModel
-import android.support.v4.app.Fragment
 import com.example.brunoazevedo.codewars.model.api.CodewarsService
 import com.example.brunoazevedo.codewars.model.repository.Repository
 import com.example.brunoazevedo.codewars.viewmodel.UserViewModel

@@ -16,18 +16,19 @@ data class Overall(val rank : Long, val name : String, val color : String, val s
 /*
 Completed Challenge
  */
-data class CompletedChallenge(val totalPages : Long, val totalItems : Long,
+data class CompletedChallenges(val totalPages : Int, val totalItems : Long,
                               val data : List<CompletedChallengeData>)
 
 data class CompletedChallengeData(val id : String, val name : String, val slug : String,
                                   @SerializedName("completedLanguages")val languages : List<String>,
                                   val completedAt : String)
 
+
 /*
 Authored Challenge
  */
 
-data class AuthoredChallenge(val data : List<AuthoredChallengeData>)
+data class AuthoredChallenges(val data : List<AuthoredChallengeData>)
 
 data class AuthoredChallengeData(val id : String, val name : String, val description : String,
                                  val ranks : Long, val rankName : String, val tags : List<String>,
