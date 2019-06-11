@@ -2,6 +2,7 @@ package com.example.brunoazevedo.codewars.di
 
 import com.example.brunoazevedo.codewars.model.api.CodewarsService
 import com.example.brunoazevedo.codewars.model.repository.Repository
+import com.example.brunoazevedo.codewars.viewmodel.CompleteChallengesViewModel
 import com.example.brunoazevedo.codewars.viewmodel.UserViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -15,5 +16,6 @@ interface AppComponent {
     fun inject(repo : Repository)
     fun inject(service : CodewarsService)
     fun inject(userViewMode : UserViewModel)
+    fun inject(completeChallengesViewModel: CompleteChallengesViewModel)
 
 }
