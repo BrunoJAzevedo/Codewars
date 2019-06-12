@@ -51,7 +51,7 @@ class ChallengesActivity : AppCompatActivity() {
         completedChallengesFragment.arguments = args
 
         supportFragmentManager?.beginTransaction()?.replace(R.id.challenges_fragment_container, completedChallengesFragment,
-            challengeString)?.addToBackStack(null)?.commit()
+            challengeString)?.commit()
     }
 
     private fun displayAuthoredChallengesFragment() {
