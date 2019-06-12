@@ -2,6 +2,7 @@ package com.example.brunoazevedo.codewars.views.challenges.authored
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
@@ -13,8 +14,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.brunoazevedo.codewars.R
 import com.example.brunoazevedo.codewars.model.AuthoredChallengeData
+import com.example.brunoazevedo.codewars.utils.info_challenge
 import com.example.brunoazevedo.codewars.utils.userString
 import com.example.brunoazevedo.codewars.viewmodel.AuthoredChallengesViewModel
+import com.example.brunoazevedo.codewars.views.challenges.ChallengeInfoActivity
 import kotlinx.android.synthetic.main.challenges_fragment.*
 
 class AuthoredChallengesFragment : Fragment() {
@@ -55,7 +58,9 @@ class AuthoredChallengesFragment : Fragment() {
 
         val listener = object:AuthoredChallengesAdapter.OnItemClickListener {
             override fun onItemClick(challenge: AuthoredChallengeData?) {
-                Toast.makeText(context, challenge?.name, Toast.LENGTH_LONG).show()
+                val intent = Intent(context, ChallengeInfoActivity::class.java)
+                intent.putExtra(info_challenge, challenge?.id)
+                startActivity(intent)
             }
         }
 

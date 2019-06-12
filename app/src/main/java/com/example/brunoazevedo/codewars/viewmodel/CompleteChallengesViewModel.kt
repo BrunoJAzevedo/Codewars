@@ -65,7 +65,7 @@ class CompleteChallengesViewModel : ViewModel() {
                 .subscribeWith(object : DisposableObserver<CompletedChallenges>() {
 
                     override fun onComplete() {
-
+                        _disposable.dispose()
                     }
 
                     override fun onNext(t : CompletedChallenges) {
@@ -78,6 +78,7 @@ class CompleteChallengesViewModel : ViewModel() {
 
                     override fun onError(e: Throwable) {
                         _error.value = true
+                        _disposable.dispose()
                     }
                 })
         } else {

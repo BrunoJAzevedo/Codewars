@@ -2,8 +2,10 @@ package com.example.brunoazevedo.codewars.model.api
 
 import com.example.brunoazevedo.codewars.model.AuthoredChallenges
 import com.example.brunoazevedo.codewars.model.CompletedChallenges
+import com.example.brunoazevedo.codewars.model.Challenge
 import com.example.brunoazevedo.codewars.model.User
 import com.example.brunoazevedo.codewars.utils.AUTHORED_CHALLENGES
+import com.example.brunoazevedo.codewars.utils.CODE_CHALLENGES
 import com.example.brunoazevedo.codewars.utils.COMPLETED_CHALLENGES
 import com.example.brunoazevedo.codewars.utils.USER
 import io.reactivex.Observable
@@ -30,5 +32,11 @@ interface CodewarsAPI {
     fun getAuthoredChallenges(
         @Path("name") name : String
     ) : Single<AuthoredChallenges>
+
+    @GET(CODE_CHALLENGES)
+    fun getChallengeInfo(
+        @Path("id") id : String
+    ) : Single<Challenge>
+
 
 }

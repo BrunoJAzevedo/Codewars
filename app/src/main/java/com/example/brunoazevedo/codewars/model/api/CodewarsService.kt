@@ -22,4 +22,6 @@ class CodewarsService {
     }
 
     fun getAuthoredChallenges(name : String) = _api.getAuthoredChallenges(name)
+
+    fun getChallengeInfo(id : String) = _api.getChallengeInfo(id)
 }

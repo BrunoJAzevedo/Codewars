@@ -3,6 +3,7 @@ package com.example.brunoazevedo.codewars.model.repository
 import com.example.brunoazevedo.codewars.di.DaggerAppComponent
 import com.example.brunoazevedo.codewars.model.AuthoredChallenges
 import com.example.brunoazevedo.codewars.model.CompletedChallenges
+import com.example.brunoazevedo.codewars.model.Challenge
 import com.example.brunoazevedo.codewars.model.User
 import com.example.brunoazevedo.codewars.model.api.CodewarsService
 import io.reactivex.Observable
@@ -29,5 +30,9 @@ class Repository : NetworkRepository {
 
     override fun getAuthoredChallenges(name: String): Single<AuthoredChallenges> {
         return _service.getAuthoredChallenges(name)
+    }
+
+    override fun getChallengeInfo(id: String): Single<Challenge> {
+        return _service.getChallengeInfo(id)
     }
 }

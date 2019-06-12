@@ -22,6 +22,10 @@
         <activity
                 android:name=".views.challenges.ChallengesActivity"
                 android:label="@string/title_activity_challenges"/>
+
+        <activity
+                android:name=".views.challenges.ChallengeInfoActivity"
+                android:label="@string/title_activity_challenges_info"/>
     </application>
 
 </manifest>

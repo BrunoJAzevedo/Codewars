@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/challenge_info_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/spacing_large"
+    />
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_xlarge"
+            android:id="@+id/challenge_info_scrollview"
+            tools:layout_editor_absoluteX="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/challenge_info_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+        >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_url"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_category"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_languages"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_createdby"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_approvedby"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_description"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_total_stars"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_vote_score"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_total_attempts"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_total_completed"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challenge_info_total_tags"
+                    android:layout_margin="@dimen/spacing_medium"
+            />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+            android:id="@+id/challenge_info_loading_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:layout_constraintTop_toTopOf="parent"/>
+</android.support.constraint.ConstraintLayout>

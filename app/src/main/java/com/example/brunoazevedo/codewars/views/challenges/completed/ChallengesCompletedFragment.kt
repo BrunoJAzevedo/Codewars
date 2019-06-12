@@ -2,6 +2,7 @@ package com.example.brunoazevedo.codewars.views.challenges.completed
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
@@ -13,8 +14,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.brunoazevedo.codewars.R
 import com.example.brunoazevedo.codewars.model.CompletedChallengeData
+import com.example.brunoazevedo.codewars.utils.info_challenge
 import com.example.brunoazevedo.codewars.utils.userString
 import com.example.brunoazevedo.codewars.viewmodel.CompleteChallengesViewModel
+import com.example.brunoazevedo.codewars.views.challenges.ChallengeInfoActivity
+import com.example.brunoazevedo.codewars.views.challenges.ChallengesActivity
 import kotlinx.android.synthetic.main.challenges_fragment.*
 
 class ChallengesCompletedFragment : Fragment() {
@@ -55,7 +59,13 @@ class ChallengesCompletedFragment : Fragment() {
 
         val listener = object:ChallengesCompletedAdapter.OnItemClickListener {
             override fun onItemClick(challenge: CompletedChallengeData?) {
-                Toast.makeText(context, challenge?.name, Toast.LENGTH_LONG).show()
+                val intent = Intent(context, ChallengeInfoActivity::class.java)
+                if (!challenge?.id.isNullOrEmpty()) {
+                    intent.putExtra(info_challenge, challenge?.id)
+                } else {
+                    intent.putExtra(info_challenge, challenge?.slug)
+                }
+                startActivity(intent)
             }
         }
 
