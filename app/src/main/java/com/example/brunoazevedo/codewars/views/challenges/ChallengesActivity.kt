@@ -41,6 +41,7 @@ class ChallengesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottom_navigation.setOnNavigationItemSelectedListener(_OnNavigationItemSelectedListener)
+        bottom_navigation.selectedItemId = R.id.challenges_completed
     }
 
     private val _OnNavigationItemSelectedListener = object : BottomNavigationView.OnNavigationItemSelectedListener {
@@ -68,7 +69,7 @@ class ChallengesFragment : Fragment() {
 
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         transaction?.replace(R.id.challenges_fragment_container, completedChallengesFragment,
-            challengeString
+            "completedChallengeString"
         )?.addToBackStack(null)?.commit()
     }
 

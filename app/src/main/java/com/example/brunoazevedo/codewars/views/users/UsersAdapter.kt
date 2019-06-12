@@ -50,6 +50,6 @@ class UsersAdapter(private var users : ArrayList<User>, private val listener : O
     }
 
     interface OnItemClickListener {
-        fun onItemClick(person : User?)
+        fun onItemClick(user : User?)
     }
 }
