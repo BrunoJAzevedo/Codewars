@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/spacing_small"
+>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Challenge_Name"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/spacing_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/vertical_guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+        <android.support.constraint.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.5"
+                android:id="@+id/vertical_guideline"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Challenge_ID"
+                app:layout_constraintStart_toStartOf="@+id/vertical_guideline"
+                android:layout_margin="@dimen/spacing_small"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/Challenge_Slug"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Challenge_Slug"
+                app:layout_constraintStart_toStartOf="@+id/vertical_guideline"
+                android:layout_margin="@dimen/spacing_small"
+                app:layout_constraintTop_toBottomOf="@id/Challenge_ID"
+                app:layout_constraintBottom_toTopOf="@id/Challenge_Languages"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Challenge_Languages"
+                app:layout_constraintStart_toStartOf="@+id/vertical_guideline"
+                android:layout_margin="@dimen/spacing_small"
+                app:layout_constraintTop_toBottomOf="@id/Challenge_Slug"
+                app:layout_constraintBottom_toTopOf="@id/Challenge_CompletedAt"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Challenge_CompletedAt"
+                app:layout_constraintStart_toStartOf="@+id/vertical_guideline"
+                android:layout_margin="@dimen/spacing_small"
+                app:layout_constraintTop_toBottomOf="@id/Language"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
