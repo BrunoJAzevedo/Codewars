@@ -3,7 +3,6 @@ package com.example.brunoazevedo.codewars.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.example.brunoazevedo.codewars.di.DaggerAppComponent
-import com.example.brunoazevedo.codewars.model.AuthoredChallengeData
 import com.example.brunoazevedo.codewars.model.CompletedChallengeData
 import com.example.brunoazevedo.codewars.model.CompletedChallenges
 import com.example.brunoazevedo.codewars.model.repository.Repository
@@ -19,11 +18,12 @@ class CompleteChallengesViewModel : ViewModel() {
     lateinit var _repo : Repository
 
     private var _challengesCompletedArrayList = ArrayList<CompletedChallengeData>()
-    lateinit var _challengesCompleted: MutableLiveData<List<CompletedChallengeData>>
-    
-    lateinit var _loading : MutableLiveData<Boolean>
-    lateinit var _allCompletedChallengesObtained : MutableLiveData<Boolean>
-    lateinit var _error : MutableLiveData<Boolean>
+
+    val _challengesCompleted = MutableLiveData<List<CompletedChallengeData>>()
+
+    val _loading = MutableLiveData<Boolean>()
+    val _allCompletedChallengesObtained = MutableLiveData<Boolean>()
+    val _error = MutableLiveData<Boolean>()
 
     private lateinit var _disposable : Disposable
 
@@ -39,12 +39,12 @@ class CompleteChallengesViewModel : ViewModel() {
         DaggerAppComponent.create().inject(this)
     }
 
-    fun getCompletedChallengesPage(name : String) {
+    fun getCompletedChallengesPage(name : String?) {
         _loading.value = true
         _allCompletedChallengesObtained.value = false
         _error.value = false
 
-        if ((_pageCounter < _pageNumber)) {
+        if ((_pageCounter < _pageNumber) && !name.isNullOrEmpty()) {
             _disposable = _repo.getCompletedChallenges(name, _pageCounter++)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -59,15 +59,13 @@ class CompleteChallengesViewModel : ViewModel() {
                         _pageNumber = t.totalPages
                         _challengesCompletedArrayList.addAll(t.data)
                         _challengesCompleted.value = _challengesCompletedArrayList
-                        dispose()
+                        _disposable.dispose()
                     }
 
                     override fun onError(e: Throwable) {
                         _error.value = true
                     }
                 })
-
-            _disposable.dispose()
         } else {
             _loading.value = false
             _allCompletedChallengesObtained.value = true
