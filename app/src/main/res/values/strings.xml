@@ -10,4 +10,8 @@
     <string name="title_completed">Completed Challenges</string>
     <string name="challenges_completed">Completed Challenges</string>
     <string name="challenges_authored">Authored Challenges</string>
+    <string name="title_activity_challenges">Challenges</string>
+    <string name="title_activity_challenges_info">Challenge Info</string>
+    <string name="description">Description:</string>
+    <string name="all_challenges_fetched">All challenges fetched</string>
 </resources>

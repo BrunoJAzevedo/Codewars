@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:id="@+id/navigation_completed"
+            android:id="@+id/challenges_completed"
             android:icon="@drawable/ic_check"
             android:title="@string/challenges_completed" />
 
     <item
-            android:id="@+id/navigation_authored"
+            android:id="@+id/challenges_authored"
             android:icon="@drawable/ic_authored"
             android:title="@string/challenges_authored" />
 

@@ -18,6 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+                android:name=".views.challenges.ChallengesActivity"
+                android:label="@string/title_activity_challenges"/>
+
+        <activity
+                android:name=".views.challenges.ChallengeInfoActivity"
+                android:label="@string/title_activity_challenges_info"/>
     </application>
 
 </manifest>
