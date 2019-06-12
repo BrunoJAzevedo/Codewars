@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,7 @@ import com.example.brunoazevedo.codewars.R
 import com.example.brunoazevedo.codewars.model.CompletedChallengeData
 import com.example.brunoazevedo.codewars.utils.userString
 import com.example.brunoazevedo.codewars.viewmodel.CompleteChallengesViewModel
-import kotlinx.android.synthetic.main.challenges_completed_fragment.*
+import kotlinx.android.synthetic.main.challenges_fragment.*
 
 class ChallengesCompletedFragment : Fragment() {
 
@@ -38,7 +37,7 @@ class ChallengesCompletedFragment : Fragment() {
     private lateinit var _challengesCompletedAdapter : ChallengesCompletedAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.challenges_completed_fragment, container, false)
+        val rootView = inflater.inflate(R.layout.challenges_fragment, container, false)
 
         _username = arguments?.getString(userString)
 
@@ -56,7 +55,7 @@ class ChallengesCompletedFragment : Fragment() {
 
         val listener = object:ChallengesCompletedAdapter.OnItemClickListener {
             override fun onItemClick(challenge: CompletedChallengeData?) {
-                Log.d(KEY, challenge?.name)
+                Toast.makeText(context, challenge?.name, Toast.LENGTH_LONG).show()
             }
         }
 
@@ -67,7 +66,7 @@ class ChallengesCompletedFragment : Fragment() {
             }
         })
 
-        completed_challenges_recyclerView.apply {
+        challenges_recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = _challengesCompletedAdapter
             itemAnimator = DefaultItemAnimator()
@@ -94,7 +93,7 @@ class ChallengesCompletedFragment : Fragment() {
 
         _completedChallengesViewModel._loading.observe(this, Observer { isLoading ->
             isLoading?.let {
-                completed_challenges_loading_view.visibility = if(it) View.VISIBLE else View.GONE
+                challenges_loading_view.visibility = if(it) View.VISIBLE else View.GONE
             }
         })
     }

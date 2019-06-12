@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.brunoazevedo.codewars.R
 import com.example.brunoazevedo.codewars.model.CompletedChallengeData
-import kotlinx.android.synthetic.main.item_completed_challenges.view.*
+import kotlinx.android.synthetic.main.item_challenge.view.*
 
 class ChallengesCompletedAdapter(
     private var _completedChallenges : ArrayList<CompletedChallengeData>,
-    private val _listener : OnItemClickListener) :
-    RecyclerView.Adapter<ChallengesCompletedAdapter.CompletedChallengesViewHolder>() {
+    private val _listener : OnItemClickListener
+) : RecyclerView.Adapter<ChallengesCompletedAdapter.CompletedChallengesViewHolder>() {
 
     private lateinit var _onBottomReachedListener : OnBottomReachedListener
 
@@ -24,7 +24,7 @@ class ChallengesCompletedAdapter(
     override fun getItemCount() = _completedChallenges.size
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = CompletedChallengesViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_completed_challenges, parent,false)
+        LayoutInflater.from(parent.context).inflate(R.layout.item_challenge, parent,false)
     )
 
     override fun onBindViewHolder(holder: CompletedChallengesViewHolder, position: Int) {
@@ -43,18 +43,9 @@ class ChallengesCompletedAdapter(
     class CompletedChallengesViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
         private val name = view.Challenge_Name
-        private val id = view.Challenge_ID
-        private val slug = view.Challenge_Slug
-        private val laguages = view.Challenge_Languages
-        private val completedAt = view.Challenge_CompletedAt
 
         fun bind(challenge : CompletedChallengeData, listener : OnItemClickListener) {
             name.text = challenge.name
-            id.text = challenge.id
-            slug.text = challenge.slug
-            laguages.text = challenge.languages.toString()
-            completedAt.text = challenge.completedAt
-
             itemView.setOnClickListener { listener.onItemClick(challenge) }
         }
     }

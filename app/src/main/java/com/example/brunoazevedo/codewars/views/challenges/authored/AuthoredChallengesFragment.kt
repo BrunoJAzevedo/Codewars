@@ -4,14 +4,18 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.brunoazevedo.codewars.R
+import com.example.brunoazevedo.codewars.model.AuthoredChallengeData
 import com.example.brunoazevedo.codewars.utils.userString
 import com.example.brunoazevedo.codewars.viewmodel.AuthoredChallengesViewModel
-import kotlinx.android.synthetic.main.challenges_completed_fragment.*
+import kotlinx.android.synthetic.main.challenges_fragment.*
 
 class AuthoredChallengesFragment : Fragment() {
 
@@ -29,10 +33,11 @@ class AuthoredChallengesFragment : Fragment() {
 
     private var _username : String? = ""
     lateinit var _authoredChallengesViewModel : AuthoredChallengesViewModel
+    private lateinit var _authoredChallengesAdapter : AuthoredChallengesAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //reusing fragment layout
-        val rootView = inflater.inflate(R.layout.challenges_completed_fragment, container, false)
+        val rootView = inflater.inflate(R.layout.challenges_fragment, container, false)
 
         _username = arguments?.getString(userString)
 
@@ -48,14 +53,28 @@ class AuthoredChallengesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val listener = object:AuthoredChallengesAdapter.OnItemClickListener {
+            override fun onItemClick(challenge: AuthoredChallengeData?) {
+                Toast.makeText(context, challenge?.name, Toast.LENGTH_LONG).show()
+            }
+        }
+
+        _authoredChallengesAdapter = AuthoredChallengesAdapter(arrayListOf(), listener)
+
+        challenges_recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = _authoredChallengesAdapter
+            itemAnimator = DefaultItemAnimator()
+        }
+
         observeAuthoredChallenges()
     }
 
     private fun observeAuthoredChallenges() {
-        /*_authoredChallengesViewModel._authoredChallenges.observe(this, Observer { challenges ->
+        _authoredChallengesViewModel._authoredChallenges.observe(this, Observer { challenges ->
             challenges?.let {
-                //TODO : _authoredCompletedAdapter.updateCompletedChallenges(it) }
-        })*/
+                _authoredChallengesAdapter.updateAuthoredChallenges(it) }
+        })
 
         _authoredChallengesViewModel._loadError.observe(this, Observer { isError ->
             isError?.let {
@@ -68,7 +87,7 @@ class AuthoredChallengesFragment : Fragment() {
 
         _authoredChallengesViewModel._loading.observe(this, Observer { isLoading ->
             isLoading?.let {
-                completed_challenges_loading_view.visibility = if(it) View.VISIBLE else View.GONE
+                challenges_loading_view.visibility = if(it) View.VISIBLE else View.GONE
             }
         })
     }
