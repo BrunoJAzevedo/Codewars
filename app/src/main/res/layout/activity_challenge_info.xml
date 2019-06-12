@@ -10,7 +10,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/challenge_info_scrollview"
             android:layout_marginTop="@dimen/spacing_large"
+            android:textSize="@dimen/spacing_xlarge"
+            android:textStyle="bold"
     />
 
     <ScrollView

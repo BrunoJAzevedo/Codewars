@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.brunoazevedo.codewars.R
 import com.example.brunoazevedo.codewars.utils.info_challenge
+import com.example.brunoazevedo.codewars.utils.listToString
 import com.example.brunoazevedo.codewars.viewmodel.ChallengeInfoViewModel
 import kotlinx.android.synthetic.main.activity_challenge_info.*
 import kotlinx.android.synthetic.main.users_fragment.*
@@ -37,17 +38,17 @@ class ChallengeInfoActivity : AppCompatActivity() {
     private fun observeChallengeInfo() {
         _challengeInfoViewModel._challenge.observe(this, Observer { challenge ->
             challenge_info_name.text = challenge?.name
-            challenge_info_approvedby.text = challenge?.approvedBy?.username
-            challenge_info_category.text = challenge?.category
-            challenge_info_createdby.text = challenge?.createdBy?.username
+            challenge_info_approvedby.text = "Approved By: ${challenge?.approvedBy?.username}"
+            challenge_info_category.text = "Category: ${challenge?.category}"
+            challenge_info_createdby.text = "Created By: ${challenge?.createdBy?.username}"
             challenge_info_description.text = challenge?.description
-            challenge_info_languages.text = challenge?.languages.toString()
-            challenge_info_total_attempts.text = challenge?.totalAttempts.toString()
-            challenge_info_total_completed.text = challenge?.totalCompleted.toString()
-            challenge_info_total_stars.text = challenge?.totalStars.toString()
-            challenge_info_total_tags.text = challenge?.tags.toString()
-            challenge_info_url.text = challenge?.url
-            challenge_info_vote_score.text = challenge?.voteScore.toString()
+            challenge_info_languages.text = "Languages: ${challenge?.languages?.listToString()}"
+            challenge_info_total_attempts.text = "Total Attempts: ${challenge?.totalAttempts.toString()}"
+            challenge_info_total_completed.text = "Total Completed : ${challenge?.totalCompleted.toString()}"
+            challenge_info_total_stars.text = "Total Stars: ${challenge?.totalStars.toString()}"
+            challenge_info_total_tags.text = "Tags: ${challenge?.tags?.listToString()}"
+            challenge_info_url.text = "URL: ${challenge?.url}"
+            challenge_info_vote_score.text = "Vote Score: ${challenge?.voteScore.toString()}"
         })
 
         _challengeInfoViewModel._loading.observe(this, Observer { isLoading ->
