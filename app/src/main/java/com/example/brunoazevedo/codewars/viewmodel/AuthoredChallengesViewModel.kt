@@ -49,6 +49,8 @@ class AuthoredChallengesViewModel : ViewModel() {
                         override fun onError(e: Throwable) {
                             _loading.value = false
                             _loadError.value = true
+                            //If it fails retry
+                            _firstTime = !_firstTime
                         }
 
                         override fun onSuccess(challenges : AuthoredChallenges) {
