@@ -22,6 +22,9 @@ class AuthoredChallengesViewModel : ViewModel() {
     val _authoredChallenges = MutableLiveData<List<AuthoredChallengeData>>()
     val _loading = MutableLiveData<Boolean>()
     val _loadError = MutableLiveData<Boolean>()
+    var _errorMessage : String? = ""
+
+    private var _retry = 0
 
     private val disposable = CompositeDisposable()
 
@@ -47,16 +50,24 @@ class AuthoredChallengesViewModel : ViewModel() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(object : DisposableSingleObserver<AuthoredChallenges>() {
                         override fun onError(e: Throwable) {
-                            _loading.value = false
-                            _loadError.value = true
                             //If it fails retry
-                            _firstTime = !_firstTime
+                            if ((_retry < 3)) {
+                                _firstTime = !_firstTime
+                                getAuthoredChallengesObservable(name)
+                                _retry++
+                            } else {
+                                _errorMessage = e.message
+
+                                _loading.value = false
+                                _loadError.value = true
+                            }
                         }
 
                         override fun onSuccess(challenges : AuthoredChallenges) {
                             _authoredChallenges.value = challenges.data
                             _loading.value = false
                             _loadError.value = false
+                            _retry = 0
                         }
                     })
             )
