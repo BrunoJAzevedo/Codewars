@@ -8,7 +8,7 @@
         android:background="?attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_margin="@dimen/spacing_medium"
 >
 
     <TextView
@@ -17,6 +17,7 @@
             android:id="@+id/Challenge_Name"
             android:layout_weight="1"
             android:gravity="center"
+            android:textSize="@dimen/spacing_large"
         />
 
 </LinearLayout>

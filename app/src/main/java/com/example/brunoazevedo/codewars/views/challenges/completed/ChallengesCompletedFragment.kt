@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +17,10 @@ import com.example.brunoazevedo.codewars.utils.info_challenge
 import com.example.brunoazevedo.codewars.utils.userString
 import com.example.brunoazevedo.codewars.viewmodel.CompleteChallengesViewModel
 import com.example.brunoazevedo.codewars.views.challenges.ChallengeInfoActivity
-import com.example.brunoazevedo.codewars.views.challenges.ChallengesActivity
 import kotlinx.android.synthetic.main.challenges_fragment.*
+import android.support.v7.widget.DividerItemDecoration
+
+
 
 class ChallengesCompletedFragment : Fragment() {
 
@@ -76,11 +77,18 @@ class ChallengesCompletedFragment : Fragment() {
             }
         })
 
+        val linearLayoutManager = LinearLayoutManager(context)
+
+        val dividerItemDecoration = DividerItemDecoration(
+            context, linearLayoutManager.orientation
+        )
+
         challenges_recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = linearLayoutManager
             adapter = _challengesCompletedAdapter
             itemAnimator = DefaultItemAnimator()
         }
+        challenges_recyclerView.addItemDecoration(dividerItemDecoration)
 
 
         observeCompletedChallenges()

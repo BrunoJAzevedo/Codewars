@@ -6,8 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,11 +66,17 @@ class AuthoredChallengesFragment : Fragment() {
 
         _authoredChallengesAdapter = AuthoredChallengesAdapter(arrayListOf(), listener)
 
+        val linearLayoutManager = LinearLayoutManager(context)
+        val dividerItemDecoration = DividerItemDecoration(
+            context, linearLayoutManager.orientation
+        )
+
         challenges_recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = linearLayoutManager
             adapter = _authoredChallengesAdapter
             itemAnimator = DefaultItemAnimator()
         }
+        challenges_recyclerView.addItemDecoration(dividerItemDecoration)
 
         observeAuthoredChallenges()
     }
