@@ -2,6 +2,7 @@ package com.example.brunoazevedo.codewars.di
 
 import com.example.brunoazevedo.codewars.model.api.CodewarsService
 import com.example.brunoazevedo.codewars.model.repository.Repository
+import com.example.brunoazevedo.codewars.viewmodel.AuthoredChallengesViewModel
 import com.example.brunoazevedo.codewars.viewmodel.CompleteChallengesViewModel
 import com.example.brunoazevedo.codewars.viewmodel.UserViewModel
 import dagger.Component
@@ -17,5 +18,6 @@ interface AppComponent {
     fun inject(service : CodewarsService)
     fun inject(userViewMode : UserViewModel)
     fun inject(completeChallengesViewModel: CompleteChallengesViewModel)
+    fun inject(authoredChallengesViewModel : AuthoredChallengesViewModel)
 
 }
