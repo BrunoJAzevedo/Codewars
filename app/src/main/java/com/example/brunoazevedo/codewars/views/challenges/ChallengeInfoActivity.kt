@@ -38,8 +38,6 @@ class ChallengeInfoActivity : AppCompatActivity() {
     private fun observeChallengeInfo() {
         _challengeInfoViewModel._challenge.observe(this, Observer { challenge ->
             challenge_info_name.text = challenge?.name
-            challenge_info_approvedby.text = "Approved By: ${challenge?.approvedBy?.username}"
-            challenge_info_category.text = "Category: ${challenge?.category}"
             challenge_info_createdby.text = "Created By: ${challenge?.createdBy?.username}"
             challenge_info_description.text = challenge?.description
             challenge_info_languages.text = "Languages: ${challenge?.languages?.listToString()}"
@@ -48,12 +46,20 @@ class ChallengeInfoActivity : AppCompatActivity() {
             challenge_info_total_stars.text = "Total Stars: ${challenge?.totalStars.toString()}"
             challenge_info_total_tags.text = "Tags: ${challenge?.tags?.listToString()}"
             challenge_info_url.text = "URL: ${challenge?.url}"
-            challenge_info_vote_score.text = "Vote Score: ${challenge?.voteScore.toString()}"
         })
 
         _challengeInfoViewModel._loading.observe(this, Observer { isLoading ->
             isLoading?.let {
                 challenge_info_loading_view.visibility = if(it) View.VISIBLE else View.GONE
+            }
+        })
+
+        _challengeInfoViewModel._loadError.observe(this, Observer { error ->
+            error?.let {
+                if(it) {
+                    Toast.makeText(this, _challengeInfoViewModel._errorMessage,
+                        Toast.LENGTH_LONG).show()
+                }
             }
         })
     }

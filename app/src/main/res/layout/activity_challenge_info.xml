@@ -41,13 +41,6 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/challenge_info_category"
-                    android:layout_margin="@dimen/spacing_medium"
-            />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/challenge_info_languages"
                     android:layout_margin="@dimen/spacing_medium"
             />
@@ -59,12 +52,6 @@
                     android:layout_margin="@dimen/spacing_medium"
             />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/challenge_info_approvedby"
-                    android:layout_margin="@dimen/spacing_medium"
-            />
 
             <TextView
                     android:layout_width="wrap_content"
@@ -77,13 +64,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/challenge_info_total_stars"
-                    android:layout_margin="@dimen/spacing_medium"
-            />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/challenge_info_vote_score"
                     android:layout_margin="@dimen/spacing_medium"
             />
 

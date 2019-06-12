@@ -19,6 +19,7 @@ class ChallengeInfoViewModel : ViewModel() {
     val _challenge = MutableLiveData<Challenge>()
     val _loading = MutableLiveData<Boolean>()
     val _loadError = MutableLiveData<Boolean>()
+    var _errorMessage : String? = ""
 
     private val disposable = CompositeDisposable()
 
@@ -37,6 +38,7 @@ class ChallengeInfoViewModel : ViewModel() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(object : DisposableSingleObserver<Challenge>() {
                         override fun onError(e: Throwable) {
+                            _errorMessage = e.message
                             _loading.value = false
                             _loadError.value = true
                         }
