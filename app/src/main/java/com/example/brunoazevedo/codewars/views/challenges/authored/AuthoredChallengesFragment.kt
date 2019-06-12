@@ -90,7 +90,7 @@ class AuthoredChallengesFragment : Fragment() {
         _authoredChallengesViewModel._loadError.observe(this, Observer { isError ->
             isError?.let {
                 if (it) {
-                    Toast.makeText(context, context?.resources?.getText(R.string.error_text),
+                    Toast.makeText(context, _authoredChallengesViewModel._errorMessage,
                         Toast.LENGTH_LONG).show()
                 }
             }
