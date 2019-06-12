@@ -17,6 +17,8 @@ class CompleteChallengesViewModel : ViewModel() {
     @Inject
     lateinit var _repo : Repository
 
+    private var _firstTime = true
+
     private var _challengesCompletedArrayList = ArrayList<CompletedChallengeData>()
 
     val _challengesCompleted = MutableLiveData<List<CompletedChallengeData>>()
@@ -37,6 +39,18 @@ class CompleteChallengesViewModel : ViewModel() {
 
     init {
         DaggerAppComponent.create().inject(this)
+    }
+
+    /**
+     * With this method we can alternate between authored and completed challenges fragments
+     * without being constantly fetching the completed challenges
+     * without the scroll
+     */
+    fun getCompletedChallengesPageInit(name : String?) {
+        if (_firstTime) {
+            _firstTime = !_firstTime
+            getCompletedChallengesPage(name)
+        }
     }
 
     fun getCompletedChallengesPage(name : String?) {

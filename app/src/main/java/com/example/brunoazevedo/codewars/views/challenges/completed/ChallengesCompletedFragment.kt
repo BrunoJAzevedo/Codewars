@@ -46,6 +46,8 @@ class ChallengesCompletedFragment : Fragment() {
             ViewModelProviders.of(this).get(CompleteChallengesViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
+        _completedChallengesViewModel.getCompletedChallengesPageInit(_username)
+
         return rootView
     }
 
@@ -73,7 +75,6 @@ class ChallengesCompletedFragment : Fragment() {
 
 
         observeCompletedChallenges()
-        _completedChallengesViewModel.getCompletedChallengesPage(_username)
     }
 
     private fun observeCompletedChallenges() {
