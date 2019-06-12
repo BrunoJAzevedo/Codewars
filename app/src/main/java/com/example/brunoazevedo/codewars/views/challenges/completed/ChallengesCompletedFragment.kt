@@ -100,10 +100,10 @@ class ChallengesCompletedFragment : Fragment() {
                 _challengesCompletedAdapter.updateCompletedChallenges(it) }
         })
 
-        _completedChallengesViewModel._error.observe(this, Observer { isError ->
+        _completedChallengesViewModel._errorLoad.observe(this, Observer { isError ->
             isError?.let {
                 if (it) {
-                    Toast.makeText(context, context?.resources?.getText(R.string.error_text),
+                    Toast.makeText(context, _completedChallengesViewModel._errorMessage,
                         Toast.LENGTH_LONG).show()
                 }
             }
@@ -112,6 +112,13 @@ class ChallengesCompletedFragment : Fragment() {
         _completedChallengesViewModel._loading.observe(this, Observer { isLoading ->
             isLoading?.let {
                 challenges_loading_view.visibility = if(it) View.VISIBLE else View.GONE
+            }
+        })
+
+        _completedChallengesViewModel._allCompletedChallengesObtained.observe(this, Observer {
+            obtainedAll-> obtainedAll?.let {
+            if (it)  Toast.makeText(context, getString(R.string.all_challenges_fetched),
+                        Toast.LENGTH_LONG).show()
             }
         })
     }
