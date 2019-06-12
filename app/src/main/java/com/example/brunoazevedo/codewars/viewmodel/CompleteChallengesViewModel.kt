@@ -25,7 +25,8 @@ class CompleteChallengesViewModel : ViewModel() {
 
     val _loading = MutableLiveData<Boolean>()
     val _allCompletedChallengesObtained = MutableLiveData<Boolean>()
-    val _error = MutableLiveData<Boolean>()
+    val _errorLoad = MutableLiveData<Boolean>()
+    var _errorMessage : String? = ""
 
     private lateinit var _disposable : Disposable
 
@@ -35,6 +36,7 @@ class CompleteChallengesViewModel : ViewModel() {
     * with the sign in challenge
     */
     private var _pageNumber = 1
+    private var _retry = 0
 
 
     init {
@@ -56,7 +58,7 @@ class CompleteChallengesViewModel : ViewModel() {
     fun getCompletedChallengesPage(name : String?) {
         _loading.value = true
         _allCompletedChallengesObtained.value = false
-        _error.value = false
+        _errorLoad.value = false
 
         if ((_pageCounter < _pageNumber) && !name.isNullOrEmpty()) {
             _disposable = _repo.getCompletedChallenges(name, _pageCounter++)
@@ -73,18 +75,31 @@ class CompleteChallengesViewModel : ViewModel() {
                         _pageNumber = t.totalPages
                         _challengesCompletedArrayList.addAll(t.data)
                         _challengesCompleted.value = _challengesCompletedArrayList
+
+                        //reset retry
+                        _retry = 0
+
                         _disposable.dispose()
                     }
 
                     override fun onError(e: Throwable) {
-                        _error.value = true
-                        _disposable.dispose()
+                        //retry three times
+                        if ((_retry < 3)) {
+                            _pageCounter--
+                            getCompletedChallengesPage(name)
+                            _retry++
+                        } else {
+                            _errorMessage = e.message
+
+                            _loading.value = false
+                            _errorLoad.value = true
+                        }
                     }
                 })
         } else {
             _loading.value = false
             _allCompletedChallengesObtained.value = true
-            _error.value = false
+            _errorLoad.value = false
         }
 
     }
