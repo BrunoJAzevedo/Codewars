@@ -14,4 +14,5 @@
     <string name="title_activity_challenges_info">Challenge Info</string>
     <string name="description">Description:</string>
     <string name="all_challenges_fetched">All challenges fetched</string>
+    <string name="no_authored_challenges">No authored challenges</string>
 </resources>

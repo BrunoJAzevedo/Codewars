@@ -84,7 +84,10 @@ class AuthoredChallengesFragment : Fragment() {
     private fun observeAuthoredChallenges() {
         _authoredChallengesViewModel.authoredChallenges.observe(this, Observer { challenges ->
             challenges?.let {
-                _authoredChallengesAdapter.updateAuthoredChallenges(it) }
+                if (challenges.isEmpty()) {
+                    Toast.makeText(context, R.string.no_authored_challenges, Toast.LENGTH_LONG).show()
+                } else _authoredChallengesAdapter.updateAuthoredChallenges(it)
+            }
         })
 
         _authoredChallengesViewModel.loadError.observe(this, Observer { isError ->
