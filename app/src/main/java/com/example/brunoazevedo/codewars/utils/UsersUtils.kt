@@ -3,7 +3,7 @@ package com.example.brunoazevedo.codewars.utils
 import com.example.brunoazevedo.codewars.model.Overall
 import com.example.brunoazevedo.codewars.model.User
 
-const val userString = "user"
+const val USER_STRING = "user"
 
 /**
  * Will return an List of users ordered by rank

@@ -15,16 +15,16 @@ import javax.inject.Inject
 class AuthoredChallengesViewModel : ViewModel() {
 
     @Inject
-    lateinit var _repo: Repository
+    lateinit var repo: Repository
 
-    private var _firstTime = true
+    private var firstTime = true
 
-    val _authoredChallenges = MutableLiveData<List<AuthoredChallengeData>>()
-    val _loading = MutableLiveData<Boolean>()
-    val _loadError = MutableLiveData<Boolean>()
-    var _errorMessage : String? = ""
+    val authoredChallenges = MutableLiveData<List<AuthoredChallengeData>>()
+    val loading = MutableLiveData<Boolean>()
+    val loadError = MutableLiveData<Boolean>()
+    var errorMessage : String? = ""
 
-    private var _retry = 0
+    private var retry = 0
 
     private val disposable = CompositeDisposable()
 
@@ -33,34 +33,34 @@ class AuthoredChallengesViewModel : ViewModel() {
     }
 
     fun getAuthoredChallenges(name : String?) {
-        if (_firstTime) {
-            _firstTime = !_firstTime
+        if (firstTime) {
+            firstTime = !firstTime
             getAuthoredChallengesObservable(name)
         }
     }
 
     private fun getAuthoredChallengesObservable(name : String?) {
-        _loading.value = true
-        _loadError.value = false
+        loading.value = true
+        loadError.value = false
 
         if (!name.isNullOrEmpty()) {
             disposable.add(
-                _repo.getAuthoredChallenges(name)
+                repo.getAuthoredChallenges(name)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(object : DisposableSingleObserver<AuthoredChallenges>() {
                         override fun onError(e: Throwable) {
-                            _firstTime = !_firstTime
-                            _errorMessage = e.message
-                            _loading.value = false
-                            _loadError.value = true
+                            firstTime = !firstTime
+                            errorMessage = e.message
+                            loading.value = false
+                            loadError.value = true
                         }
 
                         override fun onSuccess(challenges : AuthoredChallenges) {
-                            _authoredChallenges.value = challenges.data
-                            _loading.value = false
-                            _loadError.value = false
-                            _retry = 0
+                            authoredChallenges.value = challenges.data
+                            loading.value = false
+                            loadError.value = false
+                            retry = 0
                         }
                     })
             )

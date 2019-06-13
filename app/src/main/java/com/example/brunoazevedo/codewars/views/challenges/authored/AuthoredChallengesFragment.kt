@@ -14,8 +14,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.brunoazevedo.codewars.R
 import com.example.brunoazevedo.codewars.model.AuthoredChallengeData
-import com.example.brunoazevedo.codewars.utils.info_challenge
-import com.example.brunoazevedo.codewars.utils.userString
+import com.example.brunoazevedo.codewars.utils.INFO_CHALLENGE
+import com.example.brunoazevedo.codewars.utils.USER_STRING
 import com.example.brunoazevedo.codewars.viewmodel.AuthoredChallengesViewModel
 import com.example.brunoazevedo.codewars.views.challenges.ChallengeInfoActivity
 import kotlinx.android.synthetic.main.challenges_fragment.*
@@ -42,7 +42,7 @@ class AuthoredChallengesFragment : Fragment() {
         //reusing fragment layout
         val rootView = inflater.inflate(R.layout.challenges_fragment, container, false)
 
-        _username = arguments?.getString(userString)
+        _username = arguments?.getString(USER_STRING)
 
         _authoredChallengesViewModel = activity?.run {
             ViewModelProviders.of(this).get(AuthoredChallengesViewModel::class.java)
@@ -59,7 +59,7 @@ class AuthoredChallengesFragment : Fragment() {
         val listener = object:AuthoredChallengesAdapter.OnItemClickListener {
             override fun onItemClick(challenge: AuthoredChallengeData?) {
                 val intent = Intent(context, ChallengeInfoActivity::class.java)
-                intent.putExtra(info_challenge, challenge?.id)
+                intent.putExtra(INFO_CHALLENGE, challenge?.id)
                 startActivity(intent)
             }
         }
@@ -82,21 +82,21 @@ class AuthoredChallengesFragment : Fragment() {
     }
 
     private fun observeAuthoredChallenges() {
-        _authoredChallengesViewModel._authoredChallenges.observe(this, Observer { challenges ->
+        _authoredChallengesViewModel.authoredChallenges.observe(this, Observer { challenges ->
             challenges?.let {
                 _authoredChallengesAdapter.updateAuthoredChallenges(it) }
         })
 
-        _authoredChallengesViewModel._loadError.observe(this, Observer { isError ->
+        _authoredChallengesViewModel.loadError.observe(this, Observer { isError ->
             isError?.let {
                 if (it) {
-                    Toast.makeText(context, _authoredChallengesViewModel._errorMessage,
+                    Toast.makeText(context, _authoredChallengesViewModel.errorMessage,
                         Toast.LENGTH_LONG).show()
                 }
             }
         })
 
-        _authoredChallengesViewModel._loading.observe(this, Observer { isLoading ->
+        _authoredChallengesViewModel.loading.observe(this, Observer { isLoading ->
             isLoading?.let {
                 challenges_loading_view.visibility = if(it) View.VISIBLE else View.GONE
             }

@@ -8,20 +8,20 @@ import javax.inject.Inject
 class CodewarsService {
 
     @Inject
-    lateinit var _api : CodewarsAPI
+    lateinit var api : CodewarsAPI
 
     init {
         DaggerAppComponent.create().inject(this)
     }
 
-    fun getUser(name : String) =_api.getUser(name)
+    fun getUser(name : String) =api.getUser(name)
 
 
     fun getCompletedChallenges(name : String, page : Int) : Observable<CompletedChallenges> {
-        return _api.getCompletedChallenges(name,page)
+        return api.getCompletedChallenges(name,page)
     }
 
-    fun getAuthoredChallenges(name : String) = _api.getAuthoredChallenges(name)
+    fun getAuthoredChallenges(name : String) = api.getAuthoredChallenges(name)
 
-    fun getChallengeInfo(id : String) = _api.getChallengeInfo(id)
+    fun getChallengeInfo(id : String) = api.getChallengeInfo(id)
 }

@@ -84,9 +84,9 @@ class ChallengeInfoViewModelTesting {
 
         viewModel.getChallengeInfo("id")
 
-        Assert.assertEquals("name", viewModel._challenge.value?.name)
-        Assert.assertEquals(false, viewModel._loadError.value)
-        Assert.assertEquals(false, viewModel._loading.value)
+        Assert.assertEquals("name", viewModel.challenge.value?.name)
+        Assert.assertEquals(false, viewModel.loadError.value)
+        Assert.assertEquals(false, viewModel.loading.value)
     }
 
     @Test
@@ -97,7 +97,7 @@ class ChallengeInfoViewModelTesting {
 
         viewModel.getChallengeInfo("id")
 
-        Assert.assertEquals(true, viewModel._loadError.value)
-        Assert.assertEquals(false, viewModel._loading.value)
+        Assert.assertEquals(true, viewModel.loadError.value)
+        Assert.assertEquals(false, viewModel.loading.value)
     }
 }

@@ -14,12 +14,12 @@ import javax.inject.Inject
 class ChallengeInfoViewModel : ViewModel() {
 
     @Inject
-    lateinit var _repo : Repository
+    lateinit var repo : Repository
 
-    val _challenge = MutableLiveData<Challenge>()
-    val _loading = MutableLiveData<Boolean>()
-    val _loadError = MutableLiveData<Boolean>()
-    var _errorMessage : String? = ""
+    val challenge = MutableLiveData<Challenge>()
+    val loading = MutableLiveData<Boolean>()
+    val loadError = MutableLiveData<Boolean>()
+    var errorMessage : String? = ""
 
     private val disposable = CompositeDisposable()
 
@@ -28,25 +28,25 @@ class ChallengeInfoViewModel : ViewModel() {
     }
 
     fun getChallengeInfo(id : String?) {
-        _loading.value = true
-        _loadError.value = false
+        loading.value = true
+        loadError.value = false
 
         if (!id.isNullOrEmpty()) {
             disposable.add(
-                _repo.getChallengeInfo(id)
+                repo.getChallengeInfo(id)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(object : DisposableSingleObserver<Challenge>() {
                         override fun onError(e: Throwable) {
-                            _errorMessage = e.message
-                            _loading.value = false
-                            _loadError.value = true
+                            errorMessage = e.message
+                            loading.value = false
+                            loadError.value = true
                         }
 
                         override fun onSuccess(challenges : Challenge) {
-                            _challenge.value = challenges
-                            _loading.value = false
-                            _loadError.value = false
+                            challenge.value = challenges
+                            loading.value = false
+                            loadError.value = false
                         }
                     })
             )

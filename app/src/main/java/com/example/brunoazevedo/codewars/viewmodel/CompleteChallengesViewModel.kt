@@ -15,28 +15,28 @@ import javax.inject.Inject
 class CompleteChallengesViewModel : ViewModel() {
 
     @Inject
-    lateinit var _repo : Repository
+    lateinit var repo : Repository
 
-    private var _firstTime = true
+    private var firstTime = true
 
-    private var _challengesCompletedArrayList = ArrayList<CompletedChallengeData>()
+    private var challengesCompletedArrayList = ArrayList<CompletedChallengeData>()
 
-    val _challengesCompleted = MutableLiveData<List<CompletedChallengeData>>()
+    val challengesCompleted = MutableLiveData<List<CompletedChallengeData>>()
 
-    val _loading = MutableLiveData<Boolean>()
-    val _allCompletedChallengesObtained = MutableLiveData<Boolean>()
-    val _errorLoad = MutableLiveData<Boolean>()
-    var _errorMessage : String? = ""
+    val loading = MutableLiveData<Boolean>()
+    val allCompletedChallengesObtained = MutableLiveData<Boolean>()
+    val errorLoad = MutableLiveData<Boolean>()
+    var errorMessage : String? = ""
 
-    private lateinit var _disposable : Disposable
+    private lateinit var disposable : Disposable
 
-    private var _pageCounter = 0
+    private var pageCounter = 0
     /*
     * All the users have at least one page with completed challenges
     * with the sign in challenge
     */
-    private var _pageNumber = 1
-    private var _retry = 0
+    private var pageNumber = 1
+    private var retry = 0
 
 
     init {
@@ -49,51 +49,51 @@ class CompleteChallengesViewModel : ViewModel() {
      * without the scroll
      */
     fun getCompletedChallengesPageInit(name : String?) {
-        if (_firstTime) {
-            _firstTime = !_firstTime
+        if (firstTime) {
+            firstTime = !firstTime
             getCompletedChallengesPage(name)
         }
     }
 
     fun getCompletedChallengesPage(name : String?) {
-        _loading.value = true
-        _allCompletedChallengesObtained.value = false
-        _errorLoad.value = false
+        loading.value = true
+        allCompletedChallengesObtained.value = false
+        errorLoad.value = false
 
-        if ((_pageCounter < _pageNumber) && !name.isNullOrEmpty()) {
-            _disposable = _repo.getCompletedChallenges(name, _pageCounter++)
+        if ((pageCounter < pageNumber) && !name.isNullOrEmpty()) {
+            disposable = repo.getCompletedChallenges(name, pageCounter++)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<CompletedChallenges>() {
 
                     override fun onComplete() {
-                        _disposable.dispose()
+                        disposable.dispose()
                     }
 
                     override fun onNext(t : CompletedChallenges) {
-                        _loading.value = false
-                        _pageNumber = t.totalPages
-                        _challengesCompletedArrayList.addAll(t.data)
-                        _challengesCompleted.value = _challengesCompletedArrayList
+                        loading.value = false
+                        pageNumber = t.totalPages
+                        challengesCompletedArrayList.addAll(t.data)
+                        challengesCompleted.value = challengesCompletedArrayList
 
                         //reset retry
-                        _retry = 0
+                        retry = 0
 
-                        _disposable.dispose()
+                        disposable.dispose()
                     }
 
                     override fun onError(e: Throwable) {
-                        _pageCounter--
-                        _firstTime = !_firstTime
-                        _errorMessage = e.message
-                        _loading.value = false
-                        _errorLoad.value = true
+                        pageCounter--
+                        firstTime = !firstTime
+                        errorMessage = e.message
+                        loading.value = false
+                        errorLoad.value = true
                     }
                 })
         } else {
-            _loading.value = false
-            _allCompletedChallengesObtained.value = true
-            _errorLoad.value = false
+            loading.value = false
+            allCompletedChallengesObtained.value = true
+            errorLoad.value = false
         }
 
     }

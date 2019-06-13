@@ -13,26 +13,26 @@ import javax.inject.Inject
 class Repository : NetworkRepository {
 
     @Inject
-    lateinit var _service : CodewarsService
+    lateinit var service : CodewarsService
 
     init {
         DaggerAppComponent.create().inject(this)
     }
 
     override fun getUser(name: String): Single<User> {
-        return _service.getUser(name)
+        return service.getUser(name)
     }
 
     override fun getCompletedChallenges(name: String, page: Int): Observable<CompletedChallenges> {
-        return _service.getCompletedChallenges(name, page)
+        return service.getCompletedChallenges(name, page)
     }
 
 
     override fun getAuthoredChallenges(name: String): Single<AuthoredChallenges> {
-        return _service.getAuthoredChallenges(name)
+        return service.getAuthoredChallenges(name)
     }
 
     override fun getChallengeInfo(id: String): Single<Challenge> {
-        return _service.getChallengeInfo(id)
+        return service.getChallengeInfo(id)
     }
 }

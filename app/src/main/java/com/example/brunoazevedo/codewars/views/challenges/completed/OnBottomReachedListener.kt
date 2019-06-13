@@ -1,5 +1,5 @@
 package com.example.brunoazevedo.codewars.views.challenges.completed
 
-public interface OnBottomReachedListener {
+interface OnBottomReachedListener {
     fun onBottomReached()
 }

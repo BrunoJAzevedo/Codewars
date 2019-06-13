@@ -1,7 +1,7 @@
 package com.example.brunoazevedo.codewars.utils
 
-const val completed_challengesString = "completed_challenges"
+const val COMPLETED_CHALLENGES_STRING = "completed_challenges"
 
-const val authored_challengesString = "authored_challenges"
+const val AUTHORED_CHALLENGES_STRING = "authored_challenges"
 
-const val info_challenge = "info_challenge"
+const val INFO_CHALLENGE = "info_challenge"

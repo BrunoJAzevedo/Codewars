@@ -4,15 +4,13 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.brunoazevedo.codewars.R
-import com.example.brunoazevedo.codewars.utils.info_challenge
+import com.example.brunoazevedo.codewars.utils.INFO_CHALLENGE
 import com.example.brunoazevedo.codewars.utils.listToString
 import com.example.brunoazevedo.codewars.viewmodel.ChallengeInfoViewModel
 import kotlinx.android.synthetic.main.activity_challenge_info.*
-import kotlinx.android.synthetic.main.users_fragment.*
 
 class ChallengeInfoActivity : AppCompatActivity() {
 
@@ -26,7 +24,7 @@ class ChallengeInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_challenge_info)
 
-        _challengeInfo = intent.getStringExtra(info_challenge)
+        _challengeInfo = intent.getStringExtra(INFO_CHALLENGE)
 
         _challengeInfoViewModel = ViewModelProviders.of(this).get(ChallengeInfoViewModel::class.java)
         
@@ -36,7 +34,7 @@ class ChallengeInfoActivity : AppCompatActivity() {
     }
 
     private fun observeChallengeInfo() {
-        _challengeInfoViewModel._challenge.observe(this, Observer { challenge ->
+        _challengeInfoViewModel.challenge.observe(this, Observer { challenge ->
             challenge_info_name.text = challenge?.name
             challenge_info_createdby.text = "Created By: ${challenge?.createdBy?.username}"
             challenge_info_description.text = challenge?.description
@@ -48,16 +46,16 @@ class ChallengeInfoActivity : AppCompatActivity() {
             challenge_info_url.text = "URL: ${challenge?.url}"
         })
 
-        _challengeInfoViewModel._loading.observe(this, Observer { isLoading ->
+        _challengeInfoViewModel.loading.observe(this, Observer { isLoading ->
             isLoading?.let {
                 challenge_info_loading_view.visibility = if(it) View.VISIBLE else View.GONE
             }
         })
 
-        _challengeInfoViewModel._loadError.observe(this, Observer { error ->
+        _challengeInfoViewModel.loadError.observe(this, Observer { error ->
             error?.let {
                 if(it) {
-                    Toast.makeText(this, _challengeInfoViewModel._errorMessage,
+                    Toast.makeText(this, _challengeInfoViewModel.errorMessage,
                         Toast.LENGTH_LONG).show()
                 }
             }

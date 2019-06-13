@@ -76,9 +76,9 @@ class AuthoredChallengesViewModelTesting {
 
         viewModel.getAuthoredChallenges("doe")
 
-        Assert.assertEquals(2, viewModel._authoredChallenges.value?.size)
-        Assert.assertEquals(false, viewModel._loadError.value)
-        Assert.assertEquals(false, viewModel._loading.value)
+        Assert.assertEquals(2, viewModel.authoredChallenges.value?.size)
+        Assert.assertEquals(false, viewModel.loadError.value)
+        Assert.assertEquals(false, viewModel.loading.value)
     }
 
     @Test
@@ -89,7 +89,7 @@ class AuthoredChallengesViewModelTesting {
 
         viewModel.getAuthoredChallenges("doe")
 
-        Assert.assertEquals(true, viewModel._loadError.value)
-        Assert.assertEquals(false, viewModel._loading.value)
+        Assert.assertEquals(true, viewModel.loadError.value)
+        Assert.assertEquals(false, viewModel.loading.value)
     }
 }

@@ -14,7 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.brunoazevedo.codewars.model.User
-import com.example.brunoazevedo.codewars.utils.userString
+import com.example.brunoazevedo.codewars.utils.USER_STRING
 import com.example.brunoazevedo.codewars.viewmodel.UserViewModel
 import com.example.brunoazevedo.codewars.views.challenges.ChallengesActivity
 import com.example.brunoazevedo.codewars.views.users.UsersAdapter
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(){
 
     private fun launchChallengesActivity(name : String?) {
         val intent = Intent(this, ChallengesActivity::class.java)
-        intent.putExtra(userString, name)
+        intent.putExtra(USER_STRING, name)
         startActivity(intent)
     }
 
