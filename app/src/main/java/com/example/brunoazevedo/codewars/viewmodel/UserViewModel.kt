@@ -28,6 +28,8 @@ class UserViewModel : ViewModel() {
 
     private val disposable = CompositeDisposable()
 
+    var errorMessage : String? = ""
+
     init {
         DaggerAppComponent
             .create()
@@ -50,6 +52,7 @@ class UserViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<User>() {
                     override fun onError(e: Throwable) {
+                        errorMessage = e.message
                         loading.value = false
                         loadError.value = true
                     }

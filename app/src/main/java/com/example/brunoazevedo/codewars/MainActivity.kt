@@ -6,11 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.example.brunoazevedo.codewars.model.User
 import com.example.brunoazevedo.codewars.utils.userString
 import com.example.brunoazevedo.codewars.viewmodel.UserViewModel
@@ -39,11 +41,17 @@ class MainActivity : AppCompatActivity(){
 
         this.usersListAdapter = UsersAdapter(arrayListOf(), listener)
 
+        val linearLayoutManager = LinearLayoutManager(this)
+
+        val dividerItemDecoration = DividerItemDecoration(
+            this, linearLayoutManager.orientation
+        )
 
         users_recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = usersListAdapter
         }
+        users_recyclerView.addItemDecoration(dividerItemDecoration)
 
         observeUsers()
     }
@@ -65,13 +73,14 @@ class MainActivity : AppCompatActivity(){
         MenuItemCompat.setActionView(item, sv)
         sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                sv.setIconified(true)
+                sv.clearFocus()
                 userViewModel.fetchUser(query)
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                println("tap")
-                return false
+                return true
             }
         })
 
@@ -95,8 +104,7 @@ class MainActivity : AppCompatActivity(){
         userViewModel.loadError.observe(this, Observer { isError ->
             isError?.let {
                 if (it) {
-                    //Toast.makeText(, context?.resources?.getText(R.string.error_text),
-                    //    Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, userViewModel.errorMessage, Toast.LENGTH_LONG).show()
                 }
             }
         })

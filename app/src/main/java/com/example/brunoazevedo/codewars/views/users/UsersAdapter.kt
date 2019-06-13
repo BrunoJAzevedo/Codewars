@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.example.brunoazevedo.codewars.R
 import com.example.brunoazevedo.codewars.model.User
 import com.example.brunoazevedo.codewars.utils.languagePoints
+import com.example.brunoazevedo.codewars.utils.setToString
 import com.example.brunoazevedo.codewars.utils.userBestLanguage
 import kotlinx.android.synthetic.main.item_user.view.*
 
@@ -35,6 +36,7 @@ class UsersAdapter(private var users : ArrayList<User>, private val listener : O
         private val rank = view.Rank
         private val laguage = view.Language
         private val points = view.Points
+        private val languages = view.Languages
 
         fun bind(user : User, listener : OnItemClickListener) {
             name.text = user.username
@@ -44,6 +46,7 @@ class UsersAdapter(private var users : ArrayList<User>, private val listener : O
             laguage.text = "Best Language: $bestLanguage"
             val bestLanguagePoints = languagePoints(user.ranks.languages.get(bestLanguage))
             points.text = "Best Language Points: $bestLanguagePoints"
+            languages.text = "Languages: ${user.ranks.languages.keys.setToString()}"
 
             itemView.setOnClickListener { listener.onItemClick(user) }
         }
