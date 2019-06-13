@@ -83,17 +83,11 @@ class CompleteChallengesViewModel : ViewModel() {
                     }
 
                     override fun onError(e: Throwable) {
-                        //retry three times
-                        if ((_retry < 3)) {
-                            _pageCounter--
-                            getCompletedChallengesPage(name)
-                            _retry++
-                        } else {
-                            _errorMessage = e.message
-
-                            _loading.value = false
-                            _errorLoad.value = true
-                        }
+                        _pageCounter--
+                        _firstTime = !_firstTime
+                        _errorMessage = e.message
+                        _loading.value = false
+                        _errorLoad.value = true
                     }
                 })
         } else {

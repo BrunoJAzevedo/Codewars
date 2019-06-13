@@ -50,17 +50,10 @@ class AuthoredChallengesViewModel : ViewModel() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(object : DisposableSingleObserver<AuthoredChallenges>() {
                         override fun onError(e: Throwable) {
-                            //If it fails retry
-                            if ((_retry < 3)) {
-                                _firstTime = !_firstTime
-                                getAuthoredChallengesObservable(name)
-                                _retry++
-                            } else {
-                                _errorMessage = e.message
-
-                                _loading.value = false
-                                _loadError.value = true
-                            }
+                            _firstTime = !_firstTime
+                            _errorMessage = e.message
+                            _loading.value = false
+                            _loadError.value = true
                         }
 
                         override fun onSuccess(challenges : AuthoredChallenges) {
