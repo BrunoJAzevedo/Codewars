@@ -9,3 +9,23 @@ fun <T> List<T>.listToString() : String {
     }
     return listToString
 }
+
+fun Set<String>.setToString() : String {
+    if (isEmpty())
+        throw NoSuchElementException("Set is empty.")
+    var string = ""
+    var aux = 1
+    var size = this.size
+    for (elem in this) {
+        when(aux) {
+            size -> {
+                if(size == 1) string += elem
+                else string += " $elem"
+            }
+            1 -> string += "$elem,"
+            else -> string += " $elem,"
+        }
+        aux++
+    }
+    return string
+}
